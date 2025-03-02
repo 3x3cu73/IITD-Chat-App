@@ -7,11 +7,11 @@ class MessageBubble extends StatelessWidget {
   final bool info;
 
   const MessageBubble({
-    Key? key,
+    super.key,
     required this.message,
     required this.isUserMessage,
     required this.info,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

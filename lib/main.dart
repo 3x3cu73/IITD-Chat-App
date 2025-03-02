@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart'; // For kIsWeb
 
 import 'package:google_generative_ai/google_generative_ai.dart';
 
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:image_picker/image_picker.dart';
 import 'components/chat_message.dart';
-import 'components/instruction.dart';
 
 class ChatApp extends StatefulWidget {
   const ChatApp({super.key});
