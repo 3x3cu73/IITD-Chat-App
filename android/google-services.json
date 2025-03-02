@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "137823149236",
+    "project_id": "sumit-firebase-d11f2",
+    "storage_bucket": "sumit-firebase-d11f2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137823149236:android:02bb1d80947aa5d8988be1",
+        "android_client_info": {
+          "package_name": "tech.sumitsaw.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137823149236-unkemparagjo8tgjc0jflkvg9e76tr2r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzF9xDvhQhAGZJk0RVplRWFn6vkPJxE2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137823149236-unkemparagjo8tgjc0jflkvg9e76tr2r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
