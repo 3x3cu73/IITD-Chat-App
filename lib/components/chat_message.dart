@@ -5,12 +5,15 @@ class MessageBubble extends StatelessWidget {
   final String message;
   final bool isUserMessage;
   final bool info;
+  final dynamic chatImageBytes;
 
   const MessageBubble({
     super.key,
     required this.message,
     required this.isUserMessage,
     required this.info,
+    required this.chatImageBytes,
+
   });
 
   @override
@@ -24,14 +27,27 @@ class MessageBubble extends StatelessWidget {
           color: info ? Colors.purple[100] : isUserMessage ? Colors.blue[100] : Colors.green[100],
           borderRadius: BorderRadius.circular(8.0),
         ),
-        child: MarkdownBody(
-          data: message,
-          styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)),
-          shrinkWrap: true,
-          selectable: true,
-          softLineBreak: true,
-        ),
+        child: Column(
+      children: [
+      MarkdownBody(
+      data: message,
+        styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)),
+        shrinkWrap: true,
+        selectable: true,
+        softLineBreak: true,
       ),
+        if (chatImageBytes != null) ClipRRect(
+          borderRadius: BorderRadius.circular(12.0), // Adjust the radius as needed
+          child: Image.memory(
+            chatImageBytes,
+            width: 200.0,
+          ),
+        ),
+    ],
+    ),
+
+      ),
+
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'components/chat_message.dart';
+import 'dart:typed_data';
 
 class ChatApp extends StatefulWidget {
   const ChatApp({super.key});
@@ -27,7 +28,7 @@ class ChatAppState extends State<ChatApp> {
   final List<List<dynamic>> _messages = [];
   // final List<Instruction> _instructions = [];
   final apiKey =
-      "AIzaSyAypqvoB15Z7vK_fhSwLWMDytHUo4Zf3us"; // Replace with your actual API key
+      "AIzaSyAypqvoB15Z7vK_fhSwLWMDytHUo4Zf3us";
   late GenerativeModel _model;
   late ChatSession _chat;
   bool _isLoading = false;
@@ -47,21 +48,20 @@ class ChatAppState extends State<ChatApp> {
     super.initState();
     _model = GenerativeModel(
       model:
-          'gemini-2.0-flash', // Using gemini-pro for more general chatting. Change to flash if needed.
+          'gemini-2.0-flash', //Flash , earlier I was using flash-light.
       apiKey: apiKey,
       generationConfig: GenerationConfig(
         temperature: 0.7,
         topK: 64,
         topP: 0.95,
-        maxOutputTokens: 2048,
-        //Adjust to your needs.
+        maxOutputTokens: 20480,
       ),
     );
 
     final domainOfChat=Content.text("You are chat bot for IITD students. Designed by Sumit Kumar Saw as a project to show during Interview process of OCS IIT Delhi for post of Tech Executive . ");
     _chat = _model.startChat(history: [domainOfChat]);
 
-    _messages.add(["Chat App fined tuned to Answer any query of student.", false, true]);
+    _messages.add(["Chat App fined tuned to Answer any query of student.", false, true,null]);
     scroll();
   }
 
@@ -79,7 +79,7 @@ class ChatAppState extends State<ChatApp> {
       setState(() {
 
         // _messages.add([messageText, true, false]);
-        _messages.add(["Got an Image. Last uploaded Image will be considered in each message.", false, true]);
+        _messages.add(["Got an Image. Last uploaded Image will be considered in each message.", false, true,null]);
         _isLoading = true;
         scroll();
       });
@@ -103,7 +103,7 @@ class ChatAppState extends State<ChatApp> {
       setState(() {
 
         // _messages.add([messageText, true, false]);
-        _messages.add(["Got an Image. Last uploaded Image will be considered in each message.", false, true]);
+        _messages.add(["Got an Image. ```Last uploaded Image will be considered in each message.```", false, true,null]);
         _isLoading = true;
         scroll();
       });
@@ -126,7 +126,7 @@ class ChatAppState extends State<ChatApp> {
 
     setState(() {
       // _messages.add(ChatMessage(text: messageText, isUser: true));
-      _messages.add([messageText, true, false]);
+      _messages.add([messageText, true, false,chatImageBytes]);
       _isLoading = true;
       scroll();
 
@@ -147,7 +147,8 @@ class ChatAppState extends State<ChatApp> {
 
         setState(() {
           // _messages.add([messageText, true, false]);
-          _messages.add([imgRef.text!, false, false]);
+          _messages.add([imgRef.text!, false, false,null]);
+          chatImageBytes=null;
           _isLoading = false;
           scroll();
         });
@@ -157,13 +158,13 @@ class ChatAppState extends State<ChatApp> {
         if (response.text != null) {
           setState(() {
             // _messages.add(ChatMessage(text: response.text!, isUser: false));
-            _messages.add([response.text!, false, false]);
+            _messages.add([response.text!, false, false,null]);
             scroll();
             _isLoading = false;
           });
         } else {
           setState(() {
-            _messages.add(["No Response", false, true]);
+            _messages.add(["No Response", false, true,null]);
             scroll();
             _isLoading = false;
           });
@@ -171,7 +172,7 @@ class ChatAppState extends State<ChatApp> {
       }
     } catch (e) {
       setState(() {
-        _messages.add(["Error: $e", false, true]);
+        _messages.add(["Error: $e", false, true,null]);
         scroll();
         _isLoading = false;
       });
@@ -194,7 +195,7 @@ class ChatAppState extends State<ChatApp> {
                 return MessageBubble(
                   message: _messages[index][0],
                   isUserMessage: _messages[index][1],
-                  info: _messages[index][2],
+                  info: _messages[index][2], chatImageBytes: _messages[index][3],
                 );
               },
             ),
