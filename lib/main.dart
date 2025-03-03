@@ -103,7 +103,7 @@ class ChatAppState extends State<ChatApp> {
       setState(() {
 
         // _messages.add([messageText, true, false]);
-        _messages.add(["Got an Image. ```Last uploaded Image will be considered in each message.```", false, true,null]);
+        _messages.add(["Got an Image. **Write what you want.**", false, true,null]);
         _isLoading = true;
         scroll();
       });
